@@ -1,7 +1,7 @@
 import torch
 
 
-def train(model, loss_fn, optimizer, epochs, scheduler, r_max, device, config):
+def train(model, loss_fn, optimizer, epochs, scheduler, r_max, device):
     # Select computation device (CPU or GPU) from config
     device = torch.device(device)
 
