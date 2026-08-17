@@ -1,8 +1,7 @@
 import torch
 from dataclasses import dataclass
 from functools import partial
-   
-#potential class
+
 class Potential:
     
     def __init__(self, c: float):
