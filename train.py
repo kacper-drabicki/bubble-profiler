@@ -1,16 +1,16 @@
 import torch
 
 
-def train(model, loss_fn, optimizer, epochs, scheduler, config):
+def train(model, loss_fn, optimizer, epochs, scheduler, r_max, device):
     # Select computation device (CPU or GPU) from config
-    device = torch.device(config.device)
+    device = torch.device(device)
 
     # Set model to training mode (enables dropout, etc. if present)
     model.train()
 
     # Radial coordinate grid for solving the PDE
     # NOTE: start at 0.01 to avoid r=0 singularity in radial equations
-    r = torch.linspace(0.01, config.r_max, 500, device=device).view(-1, 1).requires_grad_(True)
+    r = torch.linspace(0.01, r_max, 500, device=device).view(-1, 1).requires_grad_(True)
 
     # Instantiate optimizer and learning-rate scheduler from config
     optimizer = optimizer(model.parameters())
@@ -47,7 +47,8 @@ def pretrain(model, config):
         optimizer=config.pretrain_optimizer,
         epochs=config.pretrain_epochs,
         scheduler=config.pretrain_scheduler,
-        config=config
+        r_max=config.r_max,
+        devce=config.device
     )
 
 
@@ -59,5 +60,6 @@ def finetune(model, config):
         optimizer=config.finetune_optimizer,
         epochs=config.finetune_epochs,
         scheduler=config.finetune_scheduler,
-        config=config
+        r_max=config.r_max,
+        devce=config.device
     )
