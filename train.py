@@ -48,7 +48,7 @@ def pretrain(model, config):
         epochs=config.pretrain_epochs,
         scheduler=config.pretrain_scheduler,
         r_max=config.r_max,
-        devce=config.device
+        device=config.device
     )
 
 
@@ -61,5 +61,5 @@ def finetune(model, config):
         epochs=config.finetune_epochs,
         scheduler=config.finetune_scheduler,
         r_max=config.r_max,
-        devce=config.device
+        device=config.device
     )
